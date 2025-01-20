@@ -12,6 +12,7 @@ import lombok.Setter;
 @Builder
 public class PostSearch {
 
+
     private static final int MAX_SIZE = 2000;
     @Builder.Default
     private Integer page = 1;
