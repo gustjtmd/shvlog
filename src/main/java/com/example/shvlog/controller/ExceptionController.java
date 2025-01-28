@@ -34,7 +34,7 @@ public class ExceptionController {
 
     @ResponseBody
     @ExceptionHandler(ShvlogException.class)
-    public ResponseEntity<ErrorResponse> hodologException(ShvlogException e) {
+    public ResponseEntity<ErrorResponse> shvlogException(ShvlogException e) {
         int statusCode = e.getStatusCode();
 
         ErrorResponse body = ErrorResponse.builder()

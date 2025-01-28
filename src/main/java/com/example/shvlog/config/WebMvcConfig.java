@@ -10,4 +10,3 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final AppConfig appConfig;
 }
-

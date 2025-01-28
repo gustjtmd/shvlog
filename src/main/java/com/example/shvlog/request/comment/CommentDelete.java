@@ -15,4 +15,3 @@ public class CommentDelete {
         this.password = password;
     }
 }
-

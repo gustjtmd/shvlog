@@ -1,17 +1,19 @@
 package com.example.shvlog.request.post;
 
-import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 @Getter
 @Setter
 @Builder
 public class PostSearch {
 
+    private static final int MAX_PAGE = 999;
     private static final int MAX_SIZE = 2000;
 
     @Builder.Default
@@ -20,8 +22,16 @@ public class PostSearch {
     @Builder.Default
     private Integer size = 10;
 
+    public void setPage(Integer page) {
+        this.page = page <= 0 ? 1 : min(page, MAX_PAGE);
+    }
+
     public long getOffset() {
-        return (long) (max(1, page) - 1) * min(size, MAX_SIZE);
+        return (long) (page - 1) * min(size, MAX_SIZE);
+    }
+
+    public Pageable getPageable() {
+        return PageRequest.of(page - 1, size);
     }
 }
 

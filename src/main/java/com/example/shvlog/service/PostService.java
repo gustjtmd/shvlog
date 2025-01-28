@@ -9,11 +9,11 @@ import com.example.shvlog.repository.post.PostRepository;
 import com.example.shvlog.request.post.PostCreate;
 import com.example.shvlog.request.post.PostEdit;
 import com.example.shvlog.request.post.PostSearch;
+import com.example.shvlog.response.PagingResponse;
 import com.example.shvlog.response.PostResponse;
-import java.util.List;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,17 +42,13 @@ public class PostService {
         Post post = postRepository.findById(id)
                 .orElseThrow(PostNotFound::new);
 
-        return PostResponse.builder()
-                .id(post.getId())
-                .title(post.getTitle())
-                .content(post.getContent())
-                .build();
+        return new PostResponse(post);
     }
 
-    public List<PostResponse> getList(PostSearch postSearch) {
-        return postRepository.getList(postSearch).stream()
-                .map(PostResponse::new)
-                .collect(Collectors.toList());
+    public PagingResponse<PostResponse> getList(PostSearch postSearch) {
+        Page<Post> postPage = postRepository.getList(postSearch);
+        PagingResponse<PostResponse> postList = new PagingResponse<>(postPage, PostResponse.class);
+        return postList;
     }
 
     @Transactional

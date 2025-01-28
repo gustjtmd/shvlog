@@ -1,6 +1,6 @@
 ### 게시글 작성
 
-POST http://localhost:8080/posts
+POST http://localhost:8080/api/posts
 Content-Type: application/json
 
 {
@@ -11,5 +11,21 @@ Content-Type: application/json
 
 ### 게시글 삭제
 
-DELETE http://localhost:8080/posts/1
+DELETE http://localhost:8080/api/posts/1
 Content-Type: application/json
+
+### 게시글 단건 조회
+
+GET http://localhost:8080/api/posts/1
+Content-Type: application/json
+
+
+### 게시글 리스트 조회
+
+## /api/posts?page=1&size=5
+
+
+GET http://localhost:8080/api/posts?page=1&size=2
+Content-Type: application/json
+
+
