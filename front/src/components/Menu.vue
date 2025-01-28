@@ -40,6 +40,11 @@ function logout() {
     </li>
 
     <li class="menu" v-if="state.profile === null">
+      <router-link to="/signup">회원가입</router-link>
+    </li>
+
+
+    <li class="menu" v-if="state.profile === null">
       <router-link to="/login">로그인</router-link>
     </li>
     <li class="menu" v-else>
