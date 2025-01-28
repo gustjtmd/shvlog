@@ -1,7 +1,9 @@
-package com.example.shvlog.repository;
+package com.example.shvlog.repository.post;
+
+import static com.example.shvlog.domain.QPost.post;
 
 import com.example.shvlog.domain.Post;
-import com.example.shvlog.request.PostSearch;
+import com.example.shvlog.request.post.PostSearch;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
 import lombok.RequiredArgsConstructor;

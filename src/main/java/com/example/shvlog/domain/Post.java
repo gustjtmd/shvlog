@@ -1,10 +1,15 @@
 package com.example.shvlog.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.Lob;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,10 +29,18 @@ public class Post {
     @Lob
     private String content;
 
+    @ManyToOne
+    @JoinColumn
+    private User user;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
+    private List<Comment> comments;
+
     @Builder
-    public Post(String title, String content) {
+    public Post(String title, String content, User user) {
         this.title = title;
         this.content = content;
+        this.user = user;
     }
 
     public PostEditor.PostEditorBuilder toEditor() {
@@ -39,6 +52,15 @@ public class Post {
     public void edit(PostEditor postEditor) {
         title = postEditor.getTitle();
         content = postEditor.getContent();
+    }
+
+    public Long getUserId() {
+        return this.user.getId();
+    }
+
+    public void addComment(Comment comment) {
+        comment.setPost(this);
+        this.comments.add(comment);
     }
 }
 

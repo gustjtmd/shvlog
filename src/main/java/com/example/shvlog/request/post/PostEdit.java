@@ -1,6 +1,6 @@
-package com.example.shvlog.request;
+package com.example.shvlog.request.post;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

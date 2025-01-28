@@ -5,15 +5,15 @@ import java.util.Map;
 import lombok.Getter;
 
 @Getter
-public abstract class VlogException extends RuntimeException {
+public abstract class ShvlogException extends RuntimeException {
 
     public final Map<String, String> validation = new HashMap<>();
 
-    public VlogException(String message) {
+    public ShvlogException(String message) {
         super(message);
     }
 
-    public VlogException(String message, Throwable cause) {
+    public ShvlogException(String message, Throwable cause) {
         super(message, cause);
     }
 
@@ -23,4 +23,3 @@ public abstract class VlogException extends RuntimeException {
         validation.put(fieldName, message);
     }
 }
-

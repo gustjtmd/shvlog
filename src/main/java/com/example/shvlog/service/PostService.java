@@ -1,8 +1,15 @@
 package com.example.shvlog.service;
 
 import com.example.shvlog.domain.Post;
-import com.example.shvlog.repository.PostRepository;
-import com.example.shvlog.request.PostCreate;
+import com.example.shvlog.domain.PostEditor;
+import com.example.shvlog.exception.PostNotFound;
+import com.example.shvlog.exception.UserNotFound;
+import com.example.shvlog.repository.UserRepository;
+import com.example.shvlog.repository.post.PostRepository;
+import com.example.shvlog.request.post.PostCreate;
+import com.example.shvlog.request.post.PostEdit;
+import com.example.shvlog.request.post.PostSearch;
+import com.example.shvlog.response.PostResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -15,10 +22,15 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class PostService {
 
+    private final UserRepository userRepository;
     private final PostRepository postRepository;
 
-    public void write(PostCreate postCreate) {
+    public void write(Long userId, PostCreate postCreate) {
+        var user = userRepository.findById(userId)
+                .orElseThrow(UserNotFound::new);
+
         Post post = Post.builder()
+                .user(user)
                 .title(postCreate.getTitle())
                 .content(postCreate.getContent())
                 .build();

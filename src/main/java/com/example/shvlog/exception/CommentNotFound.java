@@ -3,11 +3,11 @@ package com.example.shvlog.exception;
 /**
  * status -> 404
  */
-public class PostNotFound extends VlogException {
+public class CommentNotFound extends ShvlogException {
 
-    private static final String MESSAGE = "존재하지 않는 글입니다.";
+    private static final String MESSAGE = "존재하지 않는 댓글입니다.";
 
-    public PostNotFound() {
+    public CommentNotFound() {
         super(MESSAGE);
     }
 

@@ -15,3 +15,4 @@ public class PostEditor {
         this.content = content;
     }
 }
+
