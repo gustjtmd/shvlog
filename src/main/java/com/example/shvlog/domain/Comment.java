@@ -10,6 +10,7 @@ import jakarta.persistence.Index;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.LocalDateTime;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -38,6 +39,10 @@ public class Comment {
     @Column(nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private LocalDateTime regDate;
+
+
     @ManyToOne
     @JoinColumn
     private Post post;
@@ -47,6 +52,7 @@ public class Comment {
         this.author = author;
         this.password = password;
         this.content = content;
+        this.regDate = LocalDateTime.now();
     }
 
     public void setPost(Post post) {

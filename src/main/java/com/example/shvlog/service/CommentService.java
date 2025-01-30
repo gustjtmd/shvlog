@@ -9,11 +9,19 @@ import com.example.shvlog.repository.comment.CommentRepository;
 import com.example.shvlog.repository.post.PostRepository;
 import com.example.shvlog.request.comment.CommentCreate;
 import com.example.shvlog.request.comment.CommentDelete;
+import com.example.shvlog.request.comment.CommentSearch;
+import com.example.shvlog.request.post.PostSearch;
+import com.example.shvlog.response.CommentResponse;
+import com.example.shvlog.response.PagingResponse;
+import com.example.shvlog.response.PostResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CommentService {
@@ -49,5 +57,12 @@ public class CommentService {
 
         commentRepository.delete(comment);
     }
+
+    public PagingResponse<CommentResponse> getList(CommentSearch commentSearch) {
+        Page<Comment> commentPage = commentRepository.getList(commentSearch);
+        PagingResponse<CommentResponse> commentList = new PagingResponse<>(commentPage, CommentResponse.class);
+        return commentList;
+    }
+
 }
 

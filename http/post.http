@@ -25,7 +25,27 @@ Content-Type: application/json
 ## /api/posts?page=1&size=5
 
 
-GET http://localhost:8080/api/posts?page=1&size=2
+GET http://localhost:8080/api/posts?page=1&size=3
 Content-Type: application/json
+
+
+### 댓글 작성
+
+POST http://localhost:8080/api/posts/2/comments
+Content-Type: application/json
+
+{
+  "author":  "악플러",
+  "password":  "123444444",
+  "content":  "555죽어죽어죽어444444"
+}
+
+### 댓글 조회
+
+GET http://localhost:8080/api/posts/1/comments?page=1&size=5
+Content-Type: application/json
+
+    @GetMapping("/api/posts/{postId}/comments")
+
 
 
