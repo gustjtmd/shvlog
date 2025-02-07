@@ -10,6 +10,7 @@ import com.example.shvlog.config.handler.LoginSuccessHandler;
 import com.example.shvlog.domain.User;
 import com.example.shvlog.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
@@ -61,6 +62,16 @@ public class SecurityConfig {
                 .rememberMe(rm -> rm.rememberMeParameter("remember")
                         .alwaysRemember(false)
                         .tokenValiditySeconds(2592000)
+                )
+                .logout(logout -> logout
+                        .logoutUrl("api/auth/logout")  // 로그아웃 URL 설정 (기본값: /logout)
+                        .logoutSuccessHandler((request, response, authentication) -> {
+                            response.setStatus(HttpServletResponse.SC_OK);
+                            response.getWriter().write("{\"message\": \"Logout successful\"}");
+                            response.setContentType("application/json");
+                        })
+                        .invalidateHttpSession(true)  // 세션 무효화
+                        .deleteCookies("JSESSIONID")  // 쿠키 삭제
                 )
                 .csrf(AbstractHttpConfigurer::disable)
                 .build();
